@@ -16,6 +16,12 @@
         android:theme="@style/Theme.DietApp"
         tools:targetApi="31">
         <activity
+            android:name=".GoalSelectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".NutritionInfoActivity"
             android:exported="false" />
         <activity

@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                     // Authentication logic
                     if (email.equals(registeredEmail) && password.equals(registeredPassword)) {
                         Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, BarcodeScannerActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, BarcodeScannerActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
