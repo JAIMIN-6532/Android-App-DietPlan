@@ -36,12 +36,12 @@ public class LoginActivity extends AppCompatActivity {
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Retrieve user data from SharedPreferences
+                    //SharedPreferences
                     SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
                     String registeredEmail = sharedPreferences.getString("Email", "");
                     String registeredPassword = sharedPreferences.getString("Password", "");
 
-                    // Authentication logic
+                    // Authentication
                     if (email.equals(registeredEmail) && password.equals(registeredPassword)) {
                         Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);
