@@ -1,3 +1,17 @@
 <resources>
+
     <string name="app_name">DietApp</string>
+
+
+    <string-array name="diet_preferences_array">
+        <item>Vegetarian</item>
+        <item>Any Diet</item>
+    </string-array>
+
+
+    <string-array name="fitness_goals_array">
+        <item>Weight Loss</item>
+        <item>Weight Gain</item>
+        <item>General Fitness</item>
+    </string-array>
 </resources>

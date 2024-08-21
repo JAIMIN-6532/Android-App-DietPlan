@@ -33,8 +33,10 @@ public class LoginActivity extends AppCompatActivity {
                 String email = editTextEmailLogin.getText().toString();
                 String password = editTextPasswordLogin.getText().toString();
 
-                if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                if (email.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Email field is empty", Toast.LENGTH_SHORT).show();
+                } else if (password.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Password field is empty", Toast.LENGTH_SHORT).show();
                 } else {
                     //SharedPreferences
                     SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
