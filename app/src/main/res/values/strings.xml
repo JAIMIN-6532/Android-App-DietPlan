@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DietApp</string>
+    <string name="navigation_drawer_open">navigation open\n</string>
+    <string name="navigation_drawer_close">navigation close\n</string>
 </resources>

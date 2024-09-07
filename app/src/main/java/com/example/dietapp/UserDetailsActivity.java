@@ -44,7 +44,6 @@ import androidx.core.view.WindowInsetsCompat;
             editTextTargetWeight = findViewById(R.id.editTextTargetWeight);
             radioGroupGoal = findViewById(R.id.radioGroupGoal);
             buttonSubmit = findViewById(R.id.buttonSubmit);
-            buttonSubmit = findViewById(R.id.buttonSubmit);
 
             buttonSubmit.setOnClickListener(new View.OnClickListener() {
 
@@ -61,21 +60,20 @@ import androidx.core.view.WindowInsetsCompat;
 
                     int selectedGoalId = radioGroupGoal.getCheckedRadioButtonId();
                     selectedGoal = findViewById(selectedGoalId);
-                    String goal = selectedGoal.getText().toString().trim();
+                    String goal = selectedGoal != null ? selectedGoal.getText().toString().trim() : "";
 
                     int selectedGenderId = radioGroupGender.getCheckedRadioButtonId();
                     selectedGender = findViewById(selectedGenderId);
-                    String gender = selectedGender.getText().toString().trim();
+                    String gender = selectedGender != null ? selectedGender.getText().toString().trim() : "";
 
                     // Validation checks
-                    if (name.isEmpty() || age.isEmpty() || weight.isEmpty() || height.isEmpty() || gender.isEmpty()  || targetWeight.isEmpty() || goal.isEmpty()) {
+                    if (name.isEmpty() || age.isEmpty() || weight.isEmpty() || height.isEmpty() || gender.isEmpty() || targetWeight.isEmpty() || goal.isEmpty()) {
                         Toast.makeText(UserDetailsActivity.this, "Please fill in all the fields", Toast.LENGTH_SHORT).show();
                     } else {
-                        // Handle form submission (e.g., save data, send to server)
-                        // For now, just display a toast and go to the next screen
+                        // Display success message
                         Toast.makeText(UserDetailsActivity.this, "Details Saved!", Toast.LENGTH_SHORT).show();
 
-                        // Example: Pass data to another activity
+                        // Navigate to GoalSelectionActivity (double-check this is the right activity)
                         Intent intent = new Intent(UserDetailsActivity.this, GoalSelectionActivity.class);
                         intent.putExtra("name", name);
                         intent.putExtra("age", age);
