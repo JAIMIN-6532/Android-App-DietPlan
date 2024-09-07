@@ -27,10 +27,9 @@ public class NutritionInfoActivity extends AppCompatActivity {
 
         textViewNutritionInfo = findViewById(R.id.textViewNutritionInfo);
 
-        // Get the barcode from the intent
+
         String barcode = getIntent().getStringExtra("BARCODE");
 
-        // Fetch nutritional information based on the barcode
         if (barcode != null) {
             new FetchNutritionInfoTask().execute(barcode);
         } else {

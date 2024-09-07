@@ -39,9 +39,13 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
 
-                if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(RegisterActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                } else {
+                if (username.isEmpty()) {
+                    Toast.makeText(RegisterActivity.this, "Username field is empty", Toast.LENGTH_SHORT).show();
+                } else if (email.isEmpty()) {
+                    Toast.makeText(RegisterActivity.this, "Email field is empty", Toast.LENGTH_SHORT).show();
+                } else if (password.isEmpty()) {
+                    Toast.makeText(RegisterActivity.this, "Password field is empty", Toast.LENGTH_SHORT).show();
+                }else {
                     // Save user data using SharedPreferences
                     SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
