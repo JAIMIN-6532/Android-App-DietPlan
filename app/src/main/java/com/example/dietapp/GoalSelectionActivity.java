@@ -47,7 +47,7 @@ public class GoalSelectionActivity extends AppCompatActivity implements Navigati
 
         // Button click listeners
         buttonRecipes.setOnClickListener(v -> {
-            Intent intent = new Intent(GoalSelectionActivity.this, RegisterActivity.class);
+            Intent intent = new Intent(GoalSelectionActivity.this, NutritionInfoActivity.class);
             startActivity(intent);
         });
 
