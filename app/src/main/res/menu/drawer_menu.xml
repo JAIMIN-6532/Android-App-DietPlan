@@ -3,7 +3,12 @@
     <item
         android:id="@+id/nav_home"
         android:title="Home" />
+<!--        add icon-->
+
     <item
         android:id="@+id/nav_bmi"
         android:title="BMI Calculator" />
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Logout" />
 </menu>

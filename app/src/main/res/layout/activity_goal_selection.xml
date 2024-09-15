@@ -8,63 +8,69 @@
     android:layout_height="match_parent"
     tools:context=".GoalSelectionActivity">
 
-    <!-- Toolbar (Top Navigation Bar) -->
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="Goal Selection"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-            <!-- Scanner Button with Icon -->
-            <ImageButton
-                android:id="@+id/buttonScanner"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/scanner"
-                android:contentDescription="Scanner"
-                android:layout_gravity="end" />
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <!-- Content (Your Activity Layout) -->
+    <!-- Main Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/content_frame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <!-- Toolbar (Top Navigation Bar) -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="Goal Selection"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <!-- Scanner Button with Icon -->
+                <ImageButton
+                    android:id="@+id/buttonScanner"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/scanner"
+                    android:contentDescription="Scanner"
+                    android:layout_gravity="end" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:padding="16dp">
 
-            <LinearLayout
+            <!-- Title for Diet Plan -->
+            <TextView
+                android:id="@+id/textViewPlanTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:text="Select a diet type to see the plan"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/buttonRecipes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View Recipes"
-                    style="@style/Widget.AppCompat.Button.Colored" />
+            <!-- List of Diet Types -->
+            <ListView
+                android:id="@+id/dietTypeListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/darker_gray"
+                android:dividerHeight="1dp"
+                android:layout_weight="0.3"/>
 
-                <Button
-                    android:id="@+id/buttonExercises"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View Exercises"
-                    style="@style/Widget.AppCompat.Button.Colored" />
-            </LinearLayout>
-        </FrameLayout>
+            <!-- List of Day-wise Diet Plan -->
+            <ListView
+                android:id="@+id/dayWiseDietListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/darker_gray"
+                android:dividerHeight="1dp"
+                android:layout_weight="0.7"/>
+        </LinearLayout>
     </LinearLayout>
 
     <!-- Navigation Drawer (Side Panel) -->

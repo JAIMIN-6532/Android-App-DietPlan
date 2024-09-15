@@ -10,14 +10,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dietapp.Database.Callback.FindByModel;
 import com.example.dietapp.Database.DataManager;
-import com.example.dietapp.Database.DataModel.User;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -41,52 +38,33 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin = findViewById(R.id.buttonLogin);
         textViewRegister = findViewById(R.id.textViewRegister);
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = editTextEmailLogin.getText().toString().trim();
-                String password = editTextPasswordLogin.getText().toString().trim();
+        buttonLogin.setOnClickListener(v -> {
+            String email = editTextEmailLogin.getText().toString().trim();
+            String password = editTextPasswordLogin.getText().toString().trim();
 
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(LoginActivity.this, "Email field is empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginActivity.this, "Password field is empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                DataManager.FindByGmail(email, password, new FindByModel() {
-                    @Override
-                    public void onSuccess(Object model) {
-                        Toast.makeText(LoginActivity.this, "Login SuccesFull!..", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this,UserDetailsActivity.class);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onFailure() {
-                        Toast.makeText(LoginActivity.this, "please Enter Correct Cradentials!!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
-                // Sign in with Firebase
-//                mAuth.signInWithEmailAndPassword(email, password)
-//                        .addOnCompleteListener(LoginActivity.this, task -> {
-//                            if (task.isSuccessful()) {
-//                                // Sign in success, update UI
-//                                FirebaseUser user = mAuth.getCurrentUser();
-//                                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-//                                Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);
-//                                startActivity(intent);
-//                                finish();
-//                            } else {
-//                                // If sign in fails, display a message to the user
-//                                Toast.makeText(LoginActivity.this, "Login Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
+            if (TextUtils.isEmpty(email)) {
+                Toast.makeText(LoginActivity.this, "Email field is empty", Toast.LENGTH_SHORT).show();
+                return;
             }
+            if (TextUtils.isEmpty(password)) {
+                Toast.makeText(LoginActivity.this, "Password field is empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            DataManager.FindByGmail(email, password, new FindByModel() {
+                @Override
+                public void onSuccess(Object model) {
+                    Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onFailure() {
+                    Toast.makeText(LoginActivity.this, "Incorrect Credentials, Please Try Again!", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
         textViewRegister.setOnClickListener(v -> {
