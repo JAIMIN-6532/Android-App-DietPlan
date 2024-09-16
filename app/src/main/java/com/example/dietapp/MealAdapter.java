@@ -29,9 +29,9 @@ public class MealAdapter extends ArrayAdapter<Meal> {
 
         Meal meal = getItem(position);
 
-        ImageView mealImage = convertView.findViewById(R.id.mealImage);
-        TextView mealName = convertView.findViewById(R.id.mealName);
-        TextView mealDetails = convertView.findViewById(R.id.mealDetails);
+        ImageView mealImage = convertView.findViewById(R.id.mealImageView);
+        TextView mealName = convertView.findViewById(R.id.mealNameTextView);
+        TextView mealDetails = convertView.findViewById(R.id.mealDetailsTextView);
 
         if (meal != null) {
             mealName.setText(meal.getStrMeal());

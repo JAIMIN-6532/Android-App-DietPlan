@@ -1,68 +1,10 @@
-//package com.example.dietapp;
-//
-//import android.annotation.SuppressLint;
-//import android.content.Intent;
-//import android.os.Bundle;
-//import android.widget.ListView;
-//import androidx.annotation.Nullable;
-//import androidx.appcompat.app.AppCompatActivity;
-//import retrofit2.Call;
-//import retrofit2.Callback;
-//import retrofit2.Response;
-//import java.util.List;
-//
-//public class DietDetailsActivity extends AppCompatActivity {
-//
-//    private ListView mealListView;
-//    private String dietType;
-//
-//    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
-//    @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_diet_details);
-//
-//        mealListView = findViewById(R.id.mealListView);
-//
-//        Intent intent = getIntent();
-//        if (intent != null && intent.hasExtra("dietType")) {
-//            dietType = intent.getStringExtra("dietType");
-//            fetchMealsForDiet(dietType);
-//        }
-//    }
-//
-//    private void fetchMealsForDiet(String dietType) {
-//        MealDbService mealDbService = RetrofitClient.getMealClient().create(MealDbService.class);
-//        Call<MealResponse> call = mealDbService.getMealsByCategory(dietType);
-//
-//        call.enqueue(new Callback<MealResponse>() {
-//            @Override
-//            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-//                if (response.isSuccessful() && response.body() != null) {
-//                    List<Meal> meals = response.body().getMeals();
-//                    displayMeals(meals);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<MealResponse> call, Throwable t) {
-//                // Handle failure
-//            }
-//        });
-//    }
-//
-//    private void displayMeals(List<Meal> meals) {
-//        MealAdapter mealAdapter = new MealAdapter(this, meals);
-//        mealListView.setAdapter(mealAdapter);
-//    }
-//}
-
-
-// DietDetailsActivity.java
 package com.example.dietapp;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
@@ -77,9 +19,11 @@ public class DietDetailsActivity extends AppCompatActivity {
     private ExpandableListView dietPlanListView;
     private DietPlanAdapter dietPlanAdapter;
     private List<String> dayList;
-    private HashMap<String, List<MealResponse.Meal>> mealPlan;
-
+    private HashMap<String, HashMap<String, List<MealResponse.Meal>>> mealPlan;
     private MealDbService mealDbService;
+    private NumberPicker dayPicker;
+    private Button showDietPlanButton;
+    private int selectedDays;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,13 +31,24 @@ public class DietDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_diet_details);
 
         dietPlanListView = findViewById(R.id.dietPlanListView);
+        dayPicker = findViewById(R.id.dayPicker);
+        showDietPlanButton = findViewById(R.id.showDietPlanButton);
         dayList = new ArrayList<>();
         mealPlan = new HashMap<>();
-
         mealDbService = RetrofitClient.getMealClient().create(MealDbService.class);
 
-        // Fetch vegetarian meals from API
-        fetchMeals();
+        // Set min and max value for NumberPicker
+        dayPicker.setMinValue(1);
+        dayPicker.setMaxValue(30);
+
+        // Set default selected days
+        selectedDays = 1;
+
+        // Listen for changes in the dayPicker
+        dayPicker.setOnValueChangedListener((picker, oldVal, newVal) -> selectedDays = newVal);
+
+        // Set button click listener
+        showDietPlanButton.setOnClickListener(v -> fetchMeals());
     }
 
     private void fetchMeals() {
@@ -117,18 +72,36 @@ public class DietDetailsActivity extends AppCompatActivity {
     private void prepareDietPlan(List<MealResponse.Meal> meals) {
         // Assuming 3 meals per day (breakfast, lunch, dinner)
         int mealsPerDay = 3;
-        int totalDays = 10;
 
-        for (int i = 0; i < totalDays; i++) {
-            dayList.add("Day " + (i + 1));
-            List<MealResponse.Meal> dayMeals = new ArrayList<>();
-            for (int j = i * mealsPerDay; j < (i * mealsPerDay) + mealsPerDay; j++) {
-                dayMeals.add(meals.get(j % meals.size())); // Reuse meals if fewer than required
-            }
-            mealPlan.put(dayList.get(i), dayMeals);
+        dayList.clear();
+        mealPlan.clear();
+
+        for (int i = 0; i < selectedDays; i++) {
+            String day = "Day " + (i + 1);
+            dayList.add(day);
+
+            HashMap<String, List<MealResponse.Meal>> mealSections = new HashMap<>();
+
+            List<MealResponse.Meal> breakfast = new ArrayList<>();
+            List<MealResponse.Meal> lunch = new ArrayList<>();
+            List<MealResponse.Meal> dinner = new ArrayList<>();
+
+            // Divide meals into breakfast, lunch, and dinner
+            breakfast.add(meals.get((i * mealsPerDay) % meals.size())); // Get the meal for breakfast
+            lunch.add(meals.get((i * mealsPerDay + 1) % meals.size())); // Get the meal for lunch
+            dinner.add(meals.get((i * mealsPerDay + 2) % meals.size())); // Get the meal for dinner
+
+            mealSections.put("Breakfast", breakfast);
+            mealSections.put("Lunch", lunch);
+            mealSections.put("Dinner", dinner);
+
+            mealPlan.put(day, mealSections); // Add to meal plan
         }
 
         dietPlanAdapter = new DietPlanAdapter(this, dayList, mealPlan);
         dietPlanListView.setAdapter(dietPlanAdapter);
+
+        // Make the ExpandableListView visible after meals are fetched
+        dietPlanListView.setVisibility(View.VISIBLE);
     }
 }

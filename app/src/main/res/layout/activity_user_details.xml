@@ -1,114 +1,169 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/formbcg"
     tools:context=".UserDetailsActivity">
 
-
+    <!-- Centering the form -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:gravity="center"
         android:orientation="vertical"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
 
+        android:padding="16dp">
+
+        <!-- Name input field with rectangular border -->
         <EditText
             android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
-            android:inputType="textPersonName" />
+            android:textColor="@color/black"
+            android:inputType="textPersonName"
+            android:background="@drawable/edittext_background"
 
+            android:padding="12dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Age input field with rectangular border -->
         <EditText
             android:id="@+id/editTextAge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Age"
-            android:inputType="number" />
 
+            android:textColor="@color/black"
+            android:hint="Age"
+            android:inputType="number"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Gender selection -->
         <RadioGroup
             android:id="@+id/radioGroupGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="8dp">
 
             <RadioButton
                 android:id="@+id/radioButtonMale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="Male" />
 
             <RadioButton
                 android:id="@+id/radioButtonFemale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="Female" />
         </RadioGroup>
 
+        <!-- Weight input field -->
         <EditText
             android:id="@+id/editTextWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Weight (kg)"
-            android:inputType="numberDecimal" />
 
+            android:textColor="@color/black"
+            android:inputType="numberDecimal"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Height input field -->
         <EditText
             android:id="@+id/editTextHeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Height (cm)"
-            android:inputType="numberDecimal" />
 
-        <EditText
-            android:id="@+id/editTextDietPreferences"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Dietary Preferences"
-            android:inputType="text" />
+            android:textColor="@color/black"
+            android:inputType="numberDecimal"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp" />
 
-        <EditText
-            android:id="@+id/editTextFitnessGoals"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Fitness Goals"
-            android:inputType="text" />
+                <EditText
+                    android:id="@+id/editTextDietPreferences"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Dietary Preferences"
+                    android:textColor="@color/black"
+                    android:background="@drawable/edittext_background"
+                    android:padding="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:inputType="text" />
 
+                <EditText
+                    android:id="@+id/editTextFitnessGoals"
+                    android:padding="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:background="@drawable/edittext_background"
+                    android:hint="Fitness Goals"
+                    android:layout_marginBottom="8dp"
+                    android:inputType="text" />
+
+        <!-- Target Weight input field -->
         <EditText
             android:id="@+id/editTextTargetWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Target Weight (kg)"
-            android:inputType="numberDecimal" />
 
-        <!-- RadioGroup for Weight Loss or Gain -->
+            android:textColor="@color/black"
+            android:inputType="numberDecimal"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Goal selection -->
         <RadioGroup
             android:id="@+id/radioGroupGoal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
 
             <RadioButton
                 android:id="@+id/radioButtonWeightLoss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="Weight Loss" />
 
             <RadioButton
                 android:id="@+id/radioButtonWeightGain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="Weight Gain" />
         </RadioGroup>
 
+        <!-- Submit Button -->
         <Button
             android:id="@+id/buttonSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp" />
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

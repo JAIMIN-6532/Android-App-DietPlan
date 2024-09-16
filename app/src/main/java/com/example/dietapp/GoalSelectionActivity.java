@@ -25,7 +25,7 @@ public class GoalSelectionActivity extends AppCompatActivity implements Navigati
     private DrawerLayout drawerLayout;
     private ImageButton buttonScanner;
     private ListView dietTypeListView;
-    private String[] dietTypes = {"Low Carb", "Keto", "Vegetarian", "Vegan"};
+    private String[] dietTypes = {"Vegetarian","Non-Vegetarian"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class GoalSelectionActivity extends AppCompatActivity implements Navigati
             editor.apply();
 
             // Redirect to Login page
-            Intent intentLogout = new Intent(GoalSelectionActivity.this, MainActivity.class);
+            Intent intentLogout = new Intent(GoalSelectionActivity.this, LoginActivity.class);
             intentLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intentLogout);
             finish();
