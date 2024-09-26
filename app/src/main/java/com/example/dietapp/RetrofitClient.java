@@ -29,4 +29,3 @@ public class RetrofitClient {
         return exerciseRetrofit;
     }
 }
-

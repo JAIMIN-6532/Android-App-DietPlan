@@ -16,6 +16,9 @@
         android:theme="@style/Theme.DietApp"
         tools:targetApi="31">
         <activity
+            android:name=".DaySelectionActivity"
+            android:exported="false" />
+        <activity
             android:name=".AiDietSuggestion"
             android:exported="false" />
         <activity
