@@ -146,7 +146,7 @@ public class UserDetailsActivity extends AppCompatActivity {
                 editor.apply();
 
                 // Navigate to DaySelectionActivity
-                Intent intent = new Intent(UserDetailsActivity.this, DaySelectionActivity.class);
+                Intent intent = new Intent(UserDetailsActivity.this, GoalSelectionActivity.class);
                 startActivity(intent);
                 finish();
             }

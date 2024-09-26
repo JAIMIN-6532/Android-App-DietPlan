@@ -27,7 +27,7 @@ public class DataManager {
 
     public static void InsertData(@NonNull User user, @NonNull InsertModel callback) {
         HashMap<String, Object> dataset = new HashMap<>();
-
+        Log.d("TAG", "InsertData:1111111 ");
         dataset.put("Name", user.getName());
         dataset.put("Email", user.getEmail());
         dataset.put("Password", user.getPassword());
@@ -38,6 +38,7 @@ public class DataManager {
         if (key != null) {
             databaseReference.child(key).setValue(dataset).addOnCompleteListener(task -> {
                 if(task.isComplete()){
+                    Log.d("hgsxb", "InsertData: taskjcbsb ");
                     callback.onComplete();
                 } else if (task.isCanceled()) {
                     callback.onError();
