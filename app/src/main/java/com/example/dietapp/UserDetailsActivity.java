@@ -75,8 +75,6 @@
 //        });
 //    }
 //}
-
-
 package com.example.dietapp;
 
 import android.content.Intent;
@@ -145,12 +143,13 @@ public class UserDetailsActivity extends AppCompatActivity {
                 editor.putBoolean("isFirstLogin", false);
                 editor.apply();
 
-                // Navigate to DaySelectionActivity
+                // Navigate to GoalSelectionActivity with weights
                 Intent intent = new Intent(UserDetailsActivity.this, GoalSelectionActivity.class);
+                intent.putExtra("currentWeight", weight);
+                intent.putExtra("targetWeight", targetWeight);
                 startActivity(intent);
                 finish();
             }
         });
     }
 }
-
