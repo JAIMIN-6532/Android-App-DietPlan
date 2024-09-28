@@ -109,31 +109,181 @@
 //
 //
 
+//
+//package com.example.dietapp;
+//
+//import android.content.Intent;
+//import android.os.Bundle;
+//import android.view.View;
+//import android.widget.Button;
+//
+//import androidx.appcompat.app.AppCompatActivity;
+//import androidx.cardview.widget.CardView;
+//
+//public class GoalSelectionActivity extends AppCompatActivity {
+//
+//    private CardView cardDietPlan, cardLogout, cardBMICalculator, cardScanner;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_goal_selection);
+//
+//        // Initialize the CardViews
+//        cardDietPlan = findViewById(R.id.cardDietPlan);
+//        cardLogout = findViewById(R.id.cardLogout);
+//        cardBMICalculator = findViewById(R.id.cardBMICalculator);
+//        cardScanner = findViewById(R.id.cardScanner);
+//
+//        // Set click listeners for each CardView
+//        cardDietPlan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Handle the action for Diet Plan
+//                Intent intent = new Intent(GoalSelectionActivity.this, DietDetailsActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        cardLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Handle the logout action
+//                Intent intent = new Intent(GoalSelectionActivity.this, LoginActivity.class);
+//                startActivity(intent);
+//                // Code for logout
+//            }
+//        });
+//
+//        cardBMICalculator.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Handle the BMI Calculator action
+//                Intent intent = new Intent(GoalSelectionActivity.this, BMICalculatorActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        cardScanner.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Handle the scanner action
+//                Intent intent = new Intent(GoalSelectionActivity.this, BarcodeScannerActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//    }
+//}
+
+//
+//package com.example.dietapp;
+//import android.content.Intent;
+//import android.os.Bundle;
+//import android.view.View;
+//import androidx.appcompat.app.AppCompatActivity;
+//import androidx.cardview.widget.CardView;
+//
+//public class GoalSelectionActivity extends AppCompatActivity {
+//
+//    private CardView cardDietPlan, cardLogout, cardBMICalculator, cardScanner;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_goal_selection);
+//
+//        // Initialize the CardViews
+//        cardDietPlan = findViewById(R.id.cardDietPlan);
+//        cardLogout = findViewById(R.id.cardLogout);
+//        cardBMICalculator = findViewById(R.id.cardBMICalculator);
+//        cardScanner = findViewById(R.id.cardScanner);
+//
+//        // Get the number of selected days
+//        int selectedDays = getIntent().getIntExtra("selectedDays", 1);
+//
+//        // Set click listeners for each CardView
+//        cardDietPlan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Handle the action for Diet Plan
+//                Intent intent = new Intent(GoalSelectionActivity.this, DietDetailsActivity.class);
+//                intent.putExtra("selectedDays", selectedDays);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        cardLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Handle the logout action
+//                Intent intent = new Intent(GoalSelectionActivity.this, LoginActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        cardBMICalculator.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Handle the BMI Calculator action
+//                Intent intent = new Intent(GoalSelectionActivity.this, BMICalculatorActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        cardScanner.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Handle the scanner action
+//                Intent intent = new Intent(GoalSelectionActivity.this, BarcodeScannerActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//    }
+//}
+
 
 package com.example.dietapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 public class GoalSelectionActivity extends AppCompatActivity {
 
-    private CardView cardDietPlan, cardLogout, cardBMICalculator, cardScanner;
+    private CardView cardDietPlan, cardLogout, cardBMICalculator, cardScanner,cardWaterReminder;
+    private SharedPreferences sharedPreferences;
+    private int selectedDays;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal_selection);
 
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("DietAppPrefs", Context.MODE_PRIVATE);
+
+        // Retrieve saved selected days from SharedPreferences
+        selectedDays = sharedPreferences.getInt("selectedDays", 1);
+
         // Initialize the CardViews
         cardDietPlan = findViewById(R.id.cardDietPlan);
         cardLogout = findViewById(R.id.cardLogout);
         cardBMICalculator = findViewById(R.id.cardBMICalculator);
         cardScanner = findViewById(R.id.cardScanner);
+        cardWaterReminder = findViewById(R.id.cardWater);  // New Water Reminder Card
+
+        // Set click listener for Water Reminder
+        cardWaterReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GoalSelectionActivity.this, WaterReminderActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Set click listeners for each CardView
         cardDietPlan.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +291,7 @@ public class GoalSelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle the action for Diet Plan
                 Intent intent = new Intent(GoalSelectionActivity.this, DietDetailsActivity.class);
+                intent.putExtra("selectedDays", selectedDays);
                 startActivity(intent);
             }
         });
@@ -150,8 +301,8 @@ public class GoalSelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle the logout action
                 Intent intent = new Intent(GoalSelectionActivity.this, LoginActivity.class);
+                sharedPreferences.edit().clear().commit();
                 startActivity(intent);
-                // Code for logout
             }
         });
 
@@ -174,3 +325,4 @@ public class GoalSelectionActivity extends AppCompatActivity {
         });
     }
 }
+

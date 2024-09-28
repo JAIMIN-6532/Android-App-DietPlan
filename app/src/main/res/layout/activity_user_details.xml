@@ -99,27 +99,27 @@
             android:padding="12dp"
             android:layout_marginBottom="8dp" />
 
-                <EditText
-                    android:id="@+id/editTextDietPreferences"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Dietary Preferences"
-                    android:textColor="@color/black"
-                    android:background="@drawable/edittext_background"
-                    android:padding="12dp"
-                    android:layout_marginBottom="8dp"
-                    android:inputType="text" />
+<!--                <EditText-->
+<!--                    android:id="@+id/editTextDietPreferences"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="Dietary Preferences"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:background="@drawable/edittext_background"-->
+<!--                    android:padding="12dp"-->
+<!--                    android:layout_marginBottom="8dp"-->
+<!--                    android:inputType="text" />-->
 
-                <EditText
-                    android:id="@+id/editTextFitnessGoals"
-                    android:padding="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:background="@drawable/edittext_background"
-                    android:hint="Fitness Goals"
-                    android:layout_marginBottom="8dp"
-                    android:inputType="text" />
+<!--                <EditText-->
+<!--                    android:id="@+id/editTextFitnessGoals"-->
+<!--                    android:padding="12dp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:background="@drawable/edittext_background"-->
+<!--                    android:hint="Fitness Goals"-->
+<!--                    android:layout_marginBottom="8dp"-->
+<!--                    android:inputType="text" />-->
 
         <!-- Target Weight input field -->
         <EditText
@@ -135,28 +135,7 @@
             android:layout_marginBottom="8dp" />
 
         <!-- Goal selection -->
-        <RadioGroup
-            android:id="@+id/radioGroupGoal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="16dp">
 
-            <RadioButton
-                android:id="@+id/radioButtonWeightLoss"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="Weight Loss" />
-
-            <RadioButton
-                android:id="@+id/radioButtonWeightGain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="Weight Gain" />
-        </RadioGroup>
 
         <!-- Submit Button -->
         <Button

@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.dietapp.Database.Callback.FindByModel;
 import com.example.dietapp.Database.DataManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -51,12 +52,30 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            DataManager.FindByGmail(email, password, new FindByModel() {
+            // Check if login credentials are correct
+            DataManager.CheckLoginCredentials(email, password, new FindByModel() {
                 @Override
                 public void onSuccess(Object model) {
                     Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);
-                    startActivity(intent);
+
+                    // Retrieve first login flag from SharedPreferences
+                    SharedPreferences sharedPreferences = getSharedPreferences("DietAppPrefs", MODE_PRIVATE);
+                    boolean isFirstLogin = sharedPreferences.getBoolean("isFirstLogin", true);
+
+                    if (isFirstLogin) {
+                        // Set the first login flag to false after the first login
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("isFirstLogin", false);
+                        editor.apply();
+
+                        // Navigate to UserDetailsActivity for first-time login
+                        Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);
+                        startActivity(intent);
+                    } else {
+                        // Navigate to GoalSelectionActivity for subsequent logins
+                        Intent intent = new Intent(LoginActivity.this, GoalSelectionActivity.class);
+                        startActivity(intent);
+                    }
                     finish();
                 }
 
@@ -66,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         });
+
 
         textViewRegister.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);

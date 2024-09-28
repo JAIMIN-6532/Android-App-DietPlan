@@ -6,6 +6,15 @@ public class User {
     private String Name;
     private String Email;
     private String Password;
+    private boolean FormSubmit;
+
+    public boolean isFormSubmit() {
+        return FormSubmit;
+    }
+
+    public void setFormSubmit(boolean formSubmit) {
+        FormSubmit = formSubmit;
+    }
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -15,6 +24,8 @@ public class User {
         this.Name = name;
         this.Email = email;
         this.Password = password;
+        this.FormSubmit = false;
+
     }
 
     public String getEmail() {

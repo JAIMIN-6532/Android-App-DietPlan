@@ -1,42 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="24dp"
 
+    android:background="@android:color/white">
+
+    <!-- Title Text -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="BMI Calculator"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp"/>
 
+    <!-- Weight Input Field -->
     <EditText
         android:id="@+id/editTextWeight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter your weight (kg)"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        android:textColor="@android:color/black"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:layout_marginBottom="12dp"
+        android:padding="10dp"
+        android:background="@android:drawable/editbox_background"/>
 
+    <!-- Height Input Field -->
     <EditText
         android:id="@+id/editTextHeight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter your height (cm)"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        android:textColor="@android:color/black"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:layout_marginBottom="20dp"
+        android:padding="10dp"
+        android:background="@android:drawable/editbox_background"
+        tools:ignore="HardcodedText" />
 
+    <!-- Calculate Button -->
     <Button
         android:id="@+id/buttonCalculate"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Calculate BMI"/>
+        android:text="Calculate BMI"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:paddingVertical="10dp"
+        android:elevation="4dp"/>
 
+    <!-- Result Text -->
     <TextView
         android:id="@+id/textViewResult"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
         android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:gravity="center"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"
+        android:elevation="2dp"
         android:layout_marginTop="16dp"/>
+
+<!--    <com.github.mikephil.charting.charts.BarChart-->
+<!--        android:id="@+id/barChart"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="300dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        tools:ignore="MissingClass" />-->
+
+
 </LinearLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:orientation="vertical"-->
+<!--    android:padding="16dp">-->
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="BMI Calculator"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textStyle="bold"/>-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/editTextWeight"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="Enter your weight (kg)"-->
+<!--        android:inputType="numberDecimal"/>-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/editTextHeight"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="Enter your height (cm)"-->
+<!--        android:inputType="numberDecimal"/>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/buttonCalculate"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Calculate BMI"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewResult"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text=""-->
+<!--        android:textSize="18sp"-->
+<!--        android:layout_marginTop="16dp"/>-->
+<!--</LinearLayout>-->

@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class BMICalculatorActivity extends AppCompatActivity {
-
+//    private BarChart barChart;
     private EditText editTextWeight, editTextHeight;
     private Button buttonCalculate;
     private TextView textViewResult;
@@ -62,5 +62,9 @@ public class BMICalculatorActivity extends AppCompatActivity {
             resultText = "Obesity";
         }
         textViewResult.setText(String.format("BMI: %.1f - %s", bmi, resultText));
+
+
     }
+
+
 }

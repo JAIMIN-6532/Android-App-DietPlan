@@ -38,6 +38,8 @@ dependencies {
     implementation libs.activity
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4' // Use the latest version
 
+
+
     implementation libs.constraintlayout
     implementation libs.firebase.auth
     testImplementation libs.junit
