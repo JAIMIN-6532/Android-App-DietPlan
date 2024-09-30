@@ -212,7 +212,7 @@ public class DataManager {
                             User user = dataSnapshot.getValue(User.class);
                             if (user != null) {
                                 user.setFormSubmit(true);
-                                userReference.child(userDetails.getUserkey()).setValue(user);
+                                userReference.child(user.getKey()).setValue(user);
                             }
                         }
                     }
@@ -253,6 +253,29 @@ public class DataManager {
             }
         });
     }
+
+
+    public static void FindByUserkey(@NonNull String key, @NonNull FindByModel callback) {
+        Query query = userDetailsReference.orderByChild("userkey").equalTo(key);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // key exists, so return success
+                    callback.onSuccess(null);
+                } else {
+                    // key does not exist, so return failure
+                    callback.onFailure();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                callback.onFailure();
+                Log.w("Firebase", "Failed to fetch data.", databaseError.toException());
+            }
+        });
+    }
+
 
     // Read all users (ASYNC CODE)
     public static void ReadData(@NonNull ReadDataCallback callback) {

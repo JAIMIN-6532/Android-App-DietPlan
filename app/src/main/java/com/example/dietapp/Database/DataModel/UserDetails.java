@@ -9,6 +9,16 @@ public class UserDetails {
     private String targetWeight;
     private String userkey;
 
+    public String getDays() {
+        return days;
+    }
+
+    public void setDays(String days) {
+        this.days = days;
+    }
+
+    private String days;
+
     // Empty constructor needed for Firebase
     public UserDetails() {
     }
@@ -30,7 +40,6 @@ public class UserDetails {
         this.gender = gender;
         this.targetWeight = targetWeight;
         this.userkey = userkey;
-
     }
 
     // Getters and setters for each field

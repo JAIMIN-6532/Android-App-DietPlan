@@ -299,6 +299,7 @@ public class DietDetailsActivity extends AppCompatActivity {
             mealPlan.put(day, mealSections);
         }
 
+
         dietPlanAdapter = new DietPlanAdapter(this, dayList, mealPlan);
         dietPlanListView.setAdapter(dietPlanAdapter);
     }

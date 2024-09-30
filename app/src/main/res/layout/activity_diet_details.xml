@@ -7,8 +7,11 @@
     <ExpandableListView
         android:id="@+id/dietPlanListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
 
+        android:divider="#B0BEC5"
+        android:dividerHeight="1dp"
+        android:padding="8dp"/>
     <!-- ProgressBar for loading indicator -->
     <ProgressBar
         android:id="@+id/loadingIndicator"

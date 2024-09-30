@@ -301,7 +301,7 @@ public class GoalSelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle the logout action
                 Intent intent = new Intent(GoalSelectionActivity.this, LoginActivity.class);
-                sharedPreferences.edit().clear().commit();
+//                sharedPreferences.edit().clear().commit();
                 startActivity(intent);
             }
         });

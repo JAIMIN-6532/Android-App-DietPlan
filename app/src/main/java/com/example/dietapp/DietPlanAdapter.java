@@ -75,6 +75,39 @@ public class DietPlanAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
+//    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+//        String mealType = (String) getChild(groupPosition, childPosition);
+//        String day = dayList.get(groupPosition);
+//        List<MealResponse.Meal> meals = mealPlan.get(day).get(mealType);
+//
+//        if (convertView == null) {
+//            LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//            convertView = inflater.inflate(R.layout.item_meal, null);
+//        }
+//
+//        TextView mealTypeTextView = convertView.findViewById(R.id.mealTypeTextView);
+//        TextView mealDetailsTextView = convertView.findViewById(R.id.mealDetailsTextView);
+//        TextView nutritionInfoTextView = convertView.findViewById(R.id.nutritionInfoTextView);
+//        ImageView mealImageView = convertView.findViewById(R.id.mealImageView);
+//
+//        // Set meal type (e.g., Breakfast, Lunch, Dinner)
+//        mealTypeTextView.setText(mealType);
+//
+//        // Assuming only one meal per type (for simplicity)
+//        MealResponse.Meal meal = meals.get(0);
+//
+//        // Set meal name
+//        mealDetailsTextView.setText(meal.getMealName());
+//
+//        // Set nutrition info (you can customize based on the meal object)
+//        nutritionInfoTextView.setText("Calories: " + meal.getCalories() + "\nCarbs: " + meal.getCarbohydrates() + "\nProtein: " + meal.getProtein());
+//
+//        // Load meal image using Picasso or Glide
+//        Picasso.get().load(meal.getMealImageUrl()).into(mealImageView);
+//
+//        return convertView;
+//    }
+
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         String mealType = (String) getChild(groupPosition, childPosition);
         String day = dayList.get(groupPosition);
@@ -87,7 +120,6 @@ public class DietPlanAdapter extends BaseExpandableListAdapter {
 
         TextView mealTypeTextView = convertView.findViewById(R.id.mealTypeTextView);
         TextView mealDetailsTextView = convertView.findViewById(R.id.mealDetailsTextView);
-        TextView nutritionInfoTextView = convertView.findViewById(R.id.nutritionInfoTextView);
         ImageView mealImageView = convertView.findViewById(R.id.mealImageView);
 
         // Set meal type (e.g., Breakfast, Lunch, Dinner)
@@ -99,14 +131,12 @@ public class DietPlanAdapter extends BaseExpandableListAdapter {
         // Set meal name
         mealDetailsTextView.setText(meal.getMealName());
 
-        // Set nutrition info (you can customize based on the meal object)
-        nutritionInfoTextView.setText("Calories: " + meal.getCalories() + "\nCarbs: " + meal.getCarbohydrates() + "\nProtein: " + meal.getProtein());
-
         // Load meal image using Picasso or Glide
         Picasso.get().load(meal.getMealImageUrl()).into(mealImageView);
 
         return convertView;
     }
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {

@@ -21,11 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Apply window insets padding
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
 
         // Write a message to the database (for testing)
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -34,11 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Check if the user has completed the setup
         SharedPreferences sharedPreferences = getSharedPreferences("DietAppPrefs", MODE_PRIVATE);
-        boolean isFirstLogin = sharedPreferences.getBoolean("isFirstLogin", true);
-        Log.d("MainActivity", "isFirstLogin flag value: " + isFirstLogin);
 
         Intent intent;
-        if (isFirstLogin) {
+        if (!sharedPreferences.contains("key")) {
             intent = new Intent(MainActivity.this, LoginActivity.class);
         } else {
             intent = new Intent(MainActivity.this, GoalSelectionActivity.class);

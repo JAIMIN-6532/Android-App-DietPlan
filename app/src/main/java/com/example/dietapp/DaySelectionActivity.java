@@ -55,6 +55,11 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.dietapp.Database.Callback.FindByModel;
+import com.example.dietapp.Database.DataManager;
+import com.example.dietapp.Database.DataModel.User;
+import com.example.dietapp.Database.DataModel.UserDetails;
+
 public class DaySelectionActivity extends AppCompatActivity {
 
     private NumberPicker dayPicker;
@@ -88,6 +93,20 @@ public class DaySelectionActivity extends AppCompatActivity {
         // Handle click on select days button
         selectDaysButton.setOnClickListener(v -> {
             // Save selected days in SharedPreferences
+            String userkey = getSharedPreferences("DietAppPrefs",MODE_PRIVATE).getString("key","A1");
+//            DataManager.FindByUserkey(userkey, new FindByModel() {
+//                @Override
+//                public void onSuccess(Object model) {
+//                    User user = (User)model;
+//
+//                }
+//
+//                @Override
+//                public void onFailure() {
+//
+//                }
+//            });
+
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("selectedDays", selectedDays);
             editor.apply();

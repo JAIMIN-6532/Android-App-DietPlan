@@ -226,7 +226,7 @@ public class UserDetailsActivity extends AppCompatActivity {
 
             // Save user details to Firebase
 //            FirebaseUser user = mAuth.getCurrentUser();
-            String userkey = getSharedPreferences("DietAppPrefs",MODE_PRIVATE).getString("key","A1");
+                String userkey = getSharedPreferences("DietAppPrefs",MODE_PRIVATE).getString("key","A1");
                 UserDetails userDetails = new UserDetails(name, age, weight, height, gender, targetWeight,userkey);
                 saveUserDetails(userDetails);
 //            }

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dietapp.Database.Callback.FindByModel;
 import com.example.dietapp.Database.DataManager;
+import com.example.dietapp.Database.DataModel.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -56,27 +57,22 @@ public class LoginActivity extends AppCompatActivity {
             DataManager.CheckLoginCredentials(email, password, new FindByModel() {
                 @Override
                 public void onSuccess(Object model) {
+                    User user = (User)model;
                     Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-
                     // Retrieve first login flag from SharedPreferences
                     SharedPreferences sharedPreferences = getSharedPreferences("DietAppPrefs", MODE_PRIVATE);
-                    boolean isFirstLogin = sharedPreferences.getBoolean("isFirstLogin", true);
-
-                    if (isFirstLogin) {
-                        // Set the first login flag to false after the first login
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean("isFirstLogin", false);
-                        editor.apply();
-
-                        // Navigate to UserDetailsActivity for first-time login
-                        Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);
-                        startActivity(intent);
-                    } else {
+                    var editor = sharedPreferences.edit();
+                    editor.putString("key",user.getKey());
+                    editor.commit();
+                   if(user.isFormSubmit()) {
                         // Navigate to GoalSelectionActivity for subsequent logins
                         Intent intent = new Intent(LoginActivity.this, GoalSelectionActivity.class);
                         startActivity(intent);
+                    } else{
+                        Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);
+                        startActivity(intent);
                     }
-                    finish();
+                        finish();
                 }
 
                 @Override
