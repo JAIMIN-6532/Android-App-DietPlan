@@ -4,32 +4,72 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ExpandableListView
-        android:id="@+id/dietPlanListView"
+    <GridLayout
+        android:id="@+id/weeksGridLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:divider="#B0BEC5"
-        android:dividerHeight="1dp"
-        android:padding="8dp"/>
-    <!-- ProgressBar for loading indicator -->
-    <ProgressBar
-        android:id="@+id/loadingIndicator"
-        android:layout_marginTop="300dp"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="visible"/>
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Loading Your Diet-Plan.." />
+        android:padding="16dp">
+
+<!--        &lt;!&ndash; Example week card &ndash;&gt;-->
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_rowWeight="1"-->
+<!--            android:layout_columnWeight="1"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:elevation="8dp"-->
+<!--            android:clickable="true">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Week 1"-->
+<!--                android:textSize="20sp"-->
+<!--                android:padding="16dp"-->
+<!--                android:gravity="center"/>-->
+<!--        </androidx.cardview.widget.CardView>-->
+
+        <!-- Add more week cards dynamically in the activity -->
+
+    </GridLayout>
 </LinearLayout>
 
 
-    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<LinearLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:orientation="vertical">-->
+
+<!--    <ExpandableListView-->
+<!--        android:id="@+id/dietPlanListView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+
+<!--        android:divider="#B0BEC5"-->
+<!--        android:dividerHeight="1dp"-->
+<!--        android:padding="8dp"/>-->
+<!--    &lt;!&ndash; ProgressBar for loading indicator &ndash;&gt;-->
+<!--    <ProgressBar-->
+<!--        android:id="@+id/loadingIndicator"-->
+<!--        android:layout_marginTop="300dp"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:visibility="visible"/>-->
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:text="Loading Your Diet-Plan.." />-->
+<!--</LinearLayout>-->
+
+
+  <!--<?xml version="1.0" encoding="utf-8"?>-->
 <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
 <!--    android:layout_width="match_parent"-->
 <!--    android:layout_height="match_parent"-->

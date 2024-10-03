@@ -139,6 +139,7 @@
 package com.example.dietapp.Database;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -187,6 +188,21 @@ public class DataManager {
         }
     }
 
+    public static void GetUserDetails(String userKey, FindByModel callback) {
+        userDetailsReference.child("UserDetails").child(userKey).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                UserDetails userDetails = task.getResult().getValue(UserDetails.class);
+                if (userDetails != null) {
+                    callback.onSuccess(userDetails);
+                } else {
+                    callback.onFailure();
+                }
+            } else {
+                callback.onFailure();
+            }
+        });
+    }
+
     // Insert user details (for first-time registration)
     public static void insertUserDetails(@NonNull UserDetails userDetails, @NonNull InsertModel callback) {
         HashMap<String, Object> dataset = new HashMap<>();
@@ -198,6 +214,8 @@ public class DataManager {
         dataset.put("height",userDetails.getHeight());
         dataset.put("tweight",userDetails.getTargetWeight());
         dataset.put("userKey",userDetails.getUserkey());
+        dataset.put("days",userDetails.getDays());
+       // dataset.put("months",userDetails.getMonths());
 
         String key = userReference.push().getKey();
         dataset.put("key", key);
@@ -262,7 +280,11 @@ public class DataManager {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     // key exists, so return success
-                    callback.onSuccess(null);
+                    UserDetails model = dataSnapshot.getValue(UserDetails.class);
+                    if (model != null) {
+                        callback.onSuccess(model);
+                        userDetailsReference.child(model.getKey()).setValue(model);
+                    }
                 } else {
                     // key does not exist, so return failure
                     callback.onFailure();

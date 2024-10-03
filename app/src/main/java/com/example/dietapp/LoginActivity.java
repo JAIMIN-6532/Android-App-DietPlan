@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextPasswordLogin = findViewById(R.id.editTextPasswordLogin);
         buttonLogin = findViewById(R.id.buttonLogin);
         textViewRegister = findViewById(R.id.textViewRegister);
+        SharedPreferences sharedPreferences = getSharedPreferences("DietAppPrefs", MODE_PRIVATE);
 
         buttonLogin.setOnClickListener(v -> {
             String email = editTextEmailLogin.getText().toString().trim();
@@ -68,11 +69,13 @@ public class LoginActivity extends AppCompatActivity {
                         // Navigate to GoalSelectionActivity for subsequent logins
                         Intent intent = new Intent(LoginActivity.this, GoalSelectionActivity.class);
                         startActivity(intent);
+                        finish();
                     } else{
                         Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);
                         startActivity(intent);
-                    }
                         finish();
+                    }
+//                        finish();
                 }
 
                 @Override

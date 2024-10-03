@@ -1,6 +1,7 @@
 package com.example.dietapp.Database.DataModel;
 
 public class UserDetails {
+    private String key;
     private String name;
     private String age;
     private String weight;
@@ -8,31 +9,23 @@ public class UserDetails {
     private String gender;
     private String targetWeight;
     private String userkey;
-
-    public String getDays() {
-        return days;
-    }
-
-    public void setDays(String days) {
-        this.days = days;
-    }
-
-    private String days;
+    private int days;
+    //private int months;
 
     // Empty constructor needed for Firebase
     public UserDetails() {
     }
 
-    public String getUserkey() {
-        return userkey;
-    }
-
-    public void setUserkey(String userkey) {
-        this.userkey = userkey;
-    }
+//    public int getMonths() {
+//        return months;
+//    }
+//
+//    public void setMonths(int months) {
+//        this.months = months;
+//    }
 
     // Constructor with parameters
-    public UserDetails(String name, String age, String weight, String height, String gender, String targetWeight,String userkey) {
+    public UserDetails(String name, String age, String weight, String height, String gender, String targetWeight, String userkey,int days) {
         this.name = name;
         this.age = age;
         this.weight = weight;
@@ -40,9 +33,20 @@ public class UserDetails {
         this.gender = gender;
         this.targetWeight = targetWeight;
         this.userkey = userkey;
+        this.days = days;  // Default value for days
+//        this.months= months;
+
     }
 
     // Getters and setters for each field
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
     public String getName() {
         return name;
     }
@@ -89,5 +93,21 @@ public class UserDetails {
 
     public void setTargetWeight(String targetWeight) {
         this.targetWeight = targetWeight;
+    }
+
+    public String getUserkey() {
+        return userkey;
+    }
+
+    public void setUserkey(String userkey) {
+        this.userkey = userkey;
+    }
+
+    public int getDays() {
+        return days;
+    }
+
+    public void setDays(int days) {
+        this.days = days;
     }
 }

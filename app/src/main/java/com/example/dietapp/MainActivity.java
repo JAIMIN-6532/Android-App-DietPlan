@@ -32,12 +32,17 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("DietAppPrefs", MODE_PRIVATE);
 
         Intent intent;
-        if (!sharedPreferences.contains("key")) {
-            intent = new Intent(MainActivity.this, LoginActivity.class);
-        } else {
+        if (sharedPreferences.contains("xyz")) {
+
             intent = new Intent(MainActivity.this, GoalSelectionActivity.class);
+
+        } else {
+
+            intent = new Intent(MainActivity.this, LoginActivity.class);
+
         }
         startActivity(intent);
         finish();
+
     }
 }

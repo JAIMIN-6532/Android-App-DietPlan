@@ -14,7 +14,7 @@ public class User {
     }
 
     public void setFormSubmit(boolean formSubmit) {
-        FormSubmit = formSubmit;
+        this.FormSubmit = formSubmit;
     }
 
     public User() {

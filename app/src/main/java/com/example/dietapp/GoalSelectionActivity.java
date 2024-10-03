@@ -302,7 +302,12 @@ public class GoalSelectionActivity extends AppCompatActivity {
                 // Handle the logout action
                 Intent intent = new Intent(GoalSelectionActivity.this, LoginActivity.class);
 //                sharedPreferences.edit().clear().commit();
+
+                SharedPreferences.Editor editor=sharedPreferences.edit();
+                editor.remove("xyz");
+                editor.commit();
                 startActivity(intent);
+                finish();
             }
         });
 

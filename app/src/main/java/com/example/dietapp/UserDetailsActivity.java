@@ -153,8 +153,7 @@ package com.example.dietapp;
 //        });
 //    }
 //}
-
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -170,24 +169,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.dietapp.Database.Callback.InsertModel;
 import com.example.dietapp.Database.DataManager;
 import com.example.dietapp.Database.DataModel.UserDetails;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class UserDetailsActivity extends AppCompatActivity {
 
     private EditText editTextName, editTextAge, editTextWeight, editTextHeight, editTextTargetWeight;
-    private RadioGroup radioGroupGender;
+    private RadioGroup radioGroupGender, radioGroupMonthlyPlan;
     private Button buttonSubmit;
 
-    private FirebaseAuth mAuth;
-
+    @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
-
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
 
         // Initialize views
         editTextName = findViewById(R.id.editTextName);
@@ -197,6 +190,7 @@ public class UserDetailsActivity extends AppCompatActivity {
         editTextTargetWeight = findViewById(R.id.editTextTargetWeight);
         radioGroupGender = findViewById(R.id.radioGroupGender);
         buttonSubmit = findViewById(R.id.buttonSubmit);
+        radioGroupMonthlyPlan = findViewById(R.id.radioGroupMonthlyPlan);
 
         // Button click listener to submit user details
         buttonSubmit.setOnClickListener(v -> {
@@ -206,6 +200,20 @@ public class UserDetailsActivity extends AppCompatActivity {
             String weight = editTextWeight.getText().toString().trim();
             String height = editTextHeight.getText().toString().trim();
             String targetWeight = editTextTargetWeight.getText().toString().trim();
+            int selectedId = radioGroupMonthlyPlan.getCheckedRadioButtonId();
+            RadioButton radioButton = findViewById(selectedId);
+
+            int days = 30;  // Default to 30 days
+            if (radioButton != null) {
+                // Convert the selected plan to an integer using if-else
+                if (selectedId == R.id.radioButton1Month) {
+                    days = 30;
+                } else if (selectedId == R.id.radioButton2Months) {
+                    days = 45;
+                } else if (selectedId == R.id.radioButton3Months) {
+                    days = 60;
+                }
+            }
 
             // Get the selected gender
             int selectedGenderId = radioGroupGender.getCheckedRadioButtonId();
@@ -219,21 +227,14 @@ public class UserDetailsActivity extends AppCompatActivity {
                 return;
             }
 
-//            Toast.makeText(UserDetailsActivity.this, "Details Saved Successfully", Toast.LENGTH_SHORT).show();
-//            // Navigate to DaySelectionActivity
-//            Intent intent = new Intent(UserDetailsActivity.this, DaySelectionActivity.class);
-//            startActivity(intent);
-
-            // Save user details to Firebase
-//            FirebaseUser user = mAuth.getCurrentUser();
-                String userkey = getSharedPreferences("DietAppPrefs",MODE_PRIVATE).getString("key","A1");
-                UserDetails userDetails = new UserDetails(name, age, weight, height, gender, targetWeight,userkey);
-                saveUserDetails(userDetails);
-//            }
+            // Save user details to Firebase and SharedPreferences
+            String userkey = getSharedPreferences("DietAppPrefs", MODE_PRIVATE).getString("key", "A1");
+            UserDetails userDetails = new UserDetails(name, age, weight, height, gender, targetWeight, userkey, days);
+            saveUserDetails(userDetails);
         });
     }
 
-    // Method to save user details in Firebase
+    // Method to save user details in Firebase and store selected days
     private void saveUserDetails(UserDetails userDetails) {
         // Call the static method of DataManager to save user details
         DataManager.insertUserDetails(userDetails, new InsertModel() {
@@ -241,8 +242,15 @@ public class UserDetailsActivity extends AppCompatActivity {
             public void onComplete() {
                 // Notify the user that details were saved successfully
                 Toast.makeText(UserDetailsActivity.this, "Details Saved Successfully", Toast.LENGTH_SHORT).show();
-                // Navigate to DaySelectionActivity
-                Intent intent = new Intent(UserDetailsActivity.this, DaySelectionActivity.class);
+
+                // Store the selected number of days in SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("DietAppPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("selectedDays", userDetails.getDays());  // Store the number of days
+                editor.commit();
+
+                // Navigate to GoalSelectionActivity
+                Intent intent = new Intent(UserDetailsActivity.this, GoalSelectionActivity.class);
                 startActivity(intent);
                 finish();  // Close the current activity
             }
@@ -254,4 +262,3 @@ public class UserDetailsActivity extends AppCompatActivity {
         });
     }
 }
-

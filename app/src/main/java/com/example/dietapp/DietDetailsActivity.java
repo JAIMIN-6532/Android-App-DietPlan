@@ -195,112 +195,284 @@
 //}
 
 package com.example.dietapp;
+//
+//import android.content.Context;
+//import android.content.SharedPreferences;
+//import android.os.Bundle;
+//import android.view.View;
+//import android.widget.ExpandableListView;
+//import android.widget.ProgressBar;
+//import android.widget.Toast;
+//import androidx.appcompat.app.AppCompatActivity;
+//import retrofit2.Call;
+//import retrofit2.Callback;
+//import retrofit2.Response;
+//import java.util.ArrayList;
+//import java.util.HashMap;
+//import java.util.List;
+//
+//public class DietDetailsActivity extends AppCompatActivity {
+//
+//    private ExpandableListView dietPlanListView;
+//    private DietPlanAdapter dietPlanAdapter;
+//    private List<String> dayList;
+//    private HashMap<String, HashMap<String, List<MealResponse.Meal>>> mealPlan;
+//    private MealDbService mealDbService;
+//    private SharedPreferences sharedPreferences;
+//    private int selectedDays;
+//    private ProgressBar loadingIndicator;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_diet_details);
+//
+//        dietPlanListView = findViewById(R.id.dietPlanListView);
+//        loadingIndicator = findViewById(R.id.loadingIndicator); // ProgressBar reference
+//
+//        mealPlan = new HashMap<>();
+//        mealDbService = RetrofitClient.getMealClient().create(MealDbService.class);
+//
+//        // Initialize SharedPreferences
+//        sharedPreferences = getSharedPreferences("DietAppPrefs", Context.MODE_PRIVATE);
+//
+//        // Retrieve selected days from SharedPreferences
+//        selectedDays = sharedPreferences.getInt("selectedDays", 1);
+//
+//        fetchMeals();
+//    }
+//
+//    private void fetchMeals() {
+//        // Show the loading indicator while fetching the data
+//        loadingIndicator.setVisibility(View.VISIBLE);
+//        dietPlanListView.setVisibility(View.GONE); // Hide the list until data is fetched
+//
+//        Call<MealResponse> call = mealDbService.getMealsByCategory("Vegetarian");
+//        call.enqueue(new Callback<MealResponse>() {
+//            @Override
+//            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    List<MealResponse.Meal> meals = response.body().getMeals();
+//                    prepareDietPlan(meals);
+//                }
+//                // Hide the loading indicator after meals are fetched
+//                loadingIndicator.setVisibility(View.GONE);
+//                dietPlanListView.setVisibility(View.VISIBLE); // Show the list after data is fetched
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MealResponse> call, Throwable t) {
+//                // Hide the loading indicator and show a failure message
+//                loadingIndicator.setVisibility(View.GONE);
+//                dietPlanListView.setVisibility(View.VISIBLE);
+//                Toast.makeText(DietDetailsActivity.this, "Failed to load meals", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
+//
+//    private void prepareDietPlan(List<MealResponse.Meal> meals) {
+//        // Assuming 3 meals per day (breakfast, lunch, dinner)
+//        int mealsPerDay = 3;
+//
+//        dayList = new ArrayList<>();
+//        mealPlan.clear();
+//
+//        for (int i = 0; i < selectedDays; i++) {
+//            String day = "Day " + (i + 1);
+//            dayList.add(day);
+//
+//            HashMap<String, List<MealResponse.Meal>> mealSections = new HashMap<>();
+//
+//            List<MealResponse.Meal> breakfast = new ArrayList<>();
+//            List<MealResponse.Meal> lunch = new ArrayList<>();
+//            List<MealResponse.Meal> dinner = new ArrayList<>();
+//
+//            // Divide meals into breakfast, lunch, and dinner
+//            breakfast.add(meals.get((i * mealsPerDay) % meals.size()));
+//            lunch.add(meals.get((i * mealsPerDay + 1) % meals.size()));
+//            dinner.add(meals.get((i * mealsPerDay + 2) % meals.size()));
+//
+//            mealSections.put("Breakfast", breakfast);
+//            mealSections.put("Lunch", lunch);
+//            mealSections.put("Dinner", dinner);
+//
+//            mealPlan.put(day, mealSections);
+//        }
+//
+//
+//        dietPlanAdapter = new DietPlanAdapter(this, dayList, mealPlan);
+//        dietPlanListView.setAdapter(dietPlanAdapter);
+//    }
+//}
 
+///////*////////////////
+//
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.GridLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+//
+//public class DietDetailsActivity extends AppCompatActivity {
+//
+//    private ExpandableListView dietPlanListView;
+//    private DietPlanAdapter dietPlanAdapter;
+//    private List<String> dayList;
+//    private HashMap<String, HashMap<String, List<MealResponse.Meal>>> mealPlan;
+//    private MealDbService mealDbService;
+//    private SharedPreferences sharedPreferences;
+//    private int selectedDays;
+//    private ProgressBar loadingIndicator;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_diet_details);
+//
+//        dietPlanListView = findViewById(R.id.dietPlanListView);
+//        loadingIndicator = findViewById(R.id.loadingIndicator); // ProgressBar reference
+//
+//        mealPlan = new HashMap<>();
+//        mealDbService = RetrofitClient.getMealClient().create(MealDbService.class);
+//
+//        // Initialize SharedPreferences
+//        sharedPreferences = getSharedPreferences("DietAppPrefs", Context.MODE_PRIVATE);
+//
+//        // Retrieve selected days from SharedPreferences
+//        selectedDays = sharedPreferences.getInt("selectedDays", 1);  // Default to 1 if not set
+//
+//        fetchMeals();
+//    }
+//
+//    private void fetchMeals() {
+//        // Show the loading indicator while fetching the data
+//        loadingIndicator.setVisibility(View.VISIBLE);
+//        dietPlanListView.setVisibility(View.GONE); // Hide the list until data is fetched
+//
+//        Call<MealResponse> call = mealDbService.getMealsByCategory("Vegetarian");
+//        call.enqueue(new Callback<MealResponse>() {
+//            @Override
+//            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    List<MealResponse.Meal> meals = response.body().getMeals();
+//                    prepareDietPlan(meals);
+//                }
+//                // Hide the loading indicator after meals are fetched
+//                loadingIndicator.setVisibility(View.GONE);
+//                dietPlanListView.setVisibility(View.VISIBLE); // Show the list after data is fetched
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MealResponse> call, Throwable t) {
+//                // Hide the loading indicator and show a failure message
+//                loadingIndicator.setVisibility(View.GONE);
+//                dietPlanListView.setVisibility(View.VISIBLE);
+//                Toast.makeText(DietDetailsActivity.this, "Failed to load meals", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
+//
+//    private void prepareDietPlan(List<MealResponse.Meal> meals) {
+//        // Assuming 3 meals per day (breakfast, lunch, dinner)
+//        int mealsPerDay = 3;
+//
+//        dayList = new ArrayList<>();
+//        mealPlan.clear();
+//
+//        for (int i = 0; i < selectedDays; i++) {
+//            String day = "Day " + (i + 1);
+//            dayList.add(day);
+//
+//            HashMap<String, List<MealResponse.Meal>> mealSections = new HashMap<>();
+//
+//            List<MealResponse.Meal> breakfast = new ArrayList<>();
+//            List<MealResponse.Meal> lunch = new ArrayList<>();
+//            List<MealResponse.Meal> dinner = new ArrayList<>();
+//
+//            // Divide meals into breakfast, lunch, and dinner
+//            breakfast.add(meals.get((i * mealsPerDay) % meals.size()));
+//            lunch.add(meals.get((i * mealsPerDay + 1) % meals.size()));
+//            dinner.add(meals.get((i * mealsPerDay + 2) % meals.size()));
+//
+//            mealSections.put("Breakfast", breakfast);
+//            mealSections.put("Lunch", lunch);
+//            mealSections.put("Dinner", dinner);
+//
+//            mealPlan.put(day, mealSections);
+//        }
+//
+//        dietPlanAdapter = new DietPlanAdapter(this, dayList, mealPlan);
+//        dietPlanListView.setAdapter(dietPlanAdapter);
+//    }
+//}
 
 public class DietDetailsActivity extends AppCompatActivity {
 
-    private ExpandableListView dietPlanListView;
-    private DietPlanAdapter dietPlanAdapter;
-    private List<String> dayList;
-    private HashMap<String, HashMap<String, List<MealResponse.Meal>>> mealPlan;
-    private MealDbService mealDbService;
+    private GridLayout weeksGridLayout;
     private SharedPreferences sharedPreferences;
     private int selectedDays;
-    private ProgressBar loadingIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diet_details);
+        setContentView(R.layout.activity_diet_details); // Use the new weeks layout
 
-        dietPlanListView = findViewById(R.id.dietPlanListView);
-        loadingIndicator = findViewById(R.id.loadingIndicator); // ProgressBar reference
-
-        mealPlan = new HashMap<>();
-        mealDbService = RetrofitClient.getMealClient().create(MealDbService.class);
+        weeksGridLayout = findViewById(R.id.weeksGridLayout);
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("DietAppPrefs", Context.MODE_PRIVATE);
-
-        // Retrieve selected days from SharedPreferences
         selectedDays = sharedPreferences.getInt("selectedDays", 1);
 
-        fetchMeals();
+        // Calculate number of weeks
+        int weeks = (int) Math.ceil(selectedDays / 7.0);
+        displayWeeks(weeks);
     }
 
-    private void fetchMeals() {
-        // Show the loading indicator while fetching the data
-        loadingIndicator.setVisibility(View.VISIBLE);
-        dietPlanListView.setVisibility(View.GONE); // Hide the list until data is fetched
+    private void displayWeeks(int weeks) {
+        for (int i = 1; i <= weeks; i++) {
+            CardView weekCard = new CardView(this);
+            GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams();
+            layoutParams.width = 0;
+            layoutParams.height = 400;
+            layoutParams.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+            layoutParams.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+            layoutParams.setMargins(8, 8, 8, 8);
+            weekCard.setLayoutParams(layoutParams);
+            weekCard.setClickable(true);
+            weekCard.setElevation(8);
 
-        Call<MealResponse> call = mealDbService.getMealsByCategory("Vegetarian");
-        call.enqueue(new Callback<MealResponse>() {
-            @Override
-            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<MealResponse.Meal> meals = response.body().getMeals();
-                    prepareDietPlan(meals);
-                }
-                // Hide the loading indicator after meals are fetched
-                loadingIndicator.setVisibility(View.GONE);
-                dietPlanListView.setVisibility(View.VISIBLE); // Show the list after data is fetched
-            }
+            TextView textView = new TextView(this);
+            textView.setText("Week " + i);
+            textView.setTextSize(20);
+            textView.setPadding(16, 16, 16, 16);
+            textView.setGravity(Gravity.CENTER);
+            weekCard.addView(textView);
 
-            @Override
-            public void onFailure(Call<MealResponse> call, Throwable t) {
-                // Hide the loading indicator and show a failure message
-                loadingIndicator.setVisibility(View.GONE);
-                dietPlanListView.setVisibility(View.VISIBLE);
-                Toast.makeText(DietDetailsActivity.this, "Failed to load meals", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+            // Set onClickListener for each week
+            final int weekNumber = i;
+            weekCard.setOnClickListener(v -> {
+                Intent intent = new Intent(DietDetailsActivity.this, WeekActivity.class);
+                intent.putExtra("weekNumber", weekNumber);
+                startActivity(intent);
+            });
 
-    private void prepareDietPlan(List<MealResponse.Meal> meals) {
-        // Assuming 3 meals per day (breakfast, lunch, dinner)
-        int mealsPerDay = 3;
-
-        dayList = new ArrayList<>();
-        mealPlan.clear();
-
-        for (int i = 0; i < selectedDays; i++) {
-            String day = "Day " + (i + 1);
-            dayList.add(day);
-
-            HashMap<String, List<MealResponse.Meal>> mealSections = new HashMap<>();
-
-            List<MealResponse.Meal> breakfast = new ArrayList<>();
-            List<MealResponse.Meal> lunch = new ArrayList<>();
-            List<MealResponse.Meal> dinner = new ArrayList<>();
-
-            // Divide meals into breakfast, lunch, and dinner
-            breakfast.add(meals.get((i * mealsPerDay) % meals.size()));
-            lunch.add(meals.get((i * mealsPerDay + 1) % meals.size()));
-            dinner.add(meals.get((i * mealsPerDay + 2) % meals.size()));
-
-            mealSections.put("Breakfast", breakfast);
-            mealSections.put("Lunch", lunch);
-            mealSections.put("Dinner", dinner);
-
-            mealPlan.put(day, mealSections);
+            weeksGridLayout.addView(weekCard);
         }
-
-
-        dietPlanAdapter = new DietPlanAdapter(this, dayList, mealPlan);
-        dietPlanListView.setAdapter(dietPlanAdapter);
     }
 }
+
