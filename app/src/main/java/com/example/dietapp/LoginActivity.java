@@ -17,6 +17,8 @@ import com.example.dietapp.Database.DataManager;
 import com.example.dietapp.Database.DataModel.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -54,28 +56,43 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            // Check if login credentials are correct
+            // Check login credentials
             DataManager.CheckLoginCredentials(email, password, new FindByModel() {
                 @Override
                 public void onSuccess(Object model) {
-                    User user = (User)model;
+                    User user = (User) model;
                     Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                    // Retrieve first login flag from SharedPreferences
-                    SharedPreferences sharedPreferences = getSharedPreferences("DietAppPrefs", MODE_PRIVATE);
-                    var editor = sharedPreferences.edit();
-                    editor.putString("key",user.getKey());
-                    editor.commit();
-                   if(user.isFormSubmit()) {
-                        // Navigate to GoalSelectionActivity for subsequent logins
-                        Intent intent = new Intent(LoginActivity.this, GoalSelectionActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else{
-                        Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-//                        finish();
+
+                    // Save the current user's key to SharedPreferences
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("key", user.getKey());  // Store the user's key
+                    editor.apply();  // Apply the changes
+
+                    // Fetch selected days from Firebase for this user
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference userRef = database.getReference("users").child(user.getKey());
+
+                    userRef.child("selectedDays").get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Integer selectedDays = task.getResult().getValue(Integer.class);
+                            if (selectedDays != null) {
+                                // Save selectedDays in SharedPreferences
+                                SharedPreferences.Editor daysEditor = sharedPreferences.edit();
+                                daysEditor.putInt("selectedDays", selectedDays);
+                                daysEditor.apply();
+                            }
+                        }
+                        // Proceed to the appropriate activity based on form submission
+                        if (user.isFormSubmit()) {
+                            Intent intent = new Intent(LoginActivity.this, GoalSelectionActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
                 }
 
                 @Override

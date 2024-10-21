@@ -4,23 +4,32 @@ import androidx.annotation.NonNull;
 
 public class User {
     private String key;
-    private String Name;
-    private String Email;
-    private String Password;
-    private boolean FormSubmit;
-
-    public boolean isFormSubmit() {
-        return FormSubmit;
-    }
-
-    public void setFormSubmit(boolean formSubmit) {
-        this.FormSubmit = formSubmit;
-    }
+    private String name;
+    private String email;
+    private String password;
+    private boolean formSubmit;
+    private UserDetails userDetails;  // Embed UserDetails as part of the User
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.formSubmit = false;
+        this.userDetails = new UserDetails();  // Initialize with empty UserDetails
+    }
+
+    // Getters and Setters
+    public boolean isFormSubmit() {
+        return formSubmit;
+    }
+
+    public void setFormSubmit(boolean formSubmit) {
+        this.formSubmit = formSubmit;
+    }
 
     public String getKey() {
         return key;
@@ -30,46 +39,47 @@ public class User {
         this.key = key;
     }
 
-    public User(String name,String email , String password){
-        this.Name = name;
-        this.Email = email;
-        this.Password = password;
-        this.FormSubmit = false;
-
-    }
-
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
+    }
 
     @NonNull
     @Override
     public String toString() {
         return "User{" +
-                "Name='" + Name + '\'' +
-                ", Email='" + Email + '\'' +
-                ", Password='" + Password + '\'' +
+                "Name='" + name + '\'' +
+                ", Email='" + email + '\'' +
+                ", Password='" + password + '\'' +
+                ", UserDetails=" + userDetails.toString() +
                 '}';
     }
 }
+

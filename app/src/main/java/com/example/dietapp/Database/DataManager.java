@@ -283,7 +283,7 @@ public class DataManager {
                     UserDetails model = dataSnapshot.getValue(UserDetails.class);
                     if (model != null) {
                         callback.onSuccess(model);
-                        userDetailsReference.child(model.getKey()).setValue(model);
+                        userDetailsReference.child(model.getUserkey()).setValue(model);
                     }
                 } else {
                     // key does not exist, so return failure

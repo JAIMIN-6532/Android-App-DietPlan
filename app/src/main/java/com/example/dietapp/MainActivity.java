@@ -32,15 +32,14 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("DietAppPrefs", MODE_PRIVATE);
 
         Intent intent;
-        if (sharedPreferences.contains("xyz")) {
-
+        if (sharedPreferences.contains("key")) {
+            // If key exists, user has logged in before, go to GoalSelectionActivity
             intent = new Intent(MainActivity.this, GoalSelectionActivity.class);
-
         } else {
-
+            // No key means no logged-in user, go to LoginActivity
             intent = new Intent(MainActivity.this, LoginActivity.class);
-
         }
+
         startActivity(intent);
         finish();
 
